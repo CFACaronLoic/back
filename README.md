@@ -2,7 +2,7 @@
 
 ## MacOS/Linux:
 
-./mvnw spring-boot:run.
+./mvnw spring-boot:run
 
 ## Windows:
 
