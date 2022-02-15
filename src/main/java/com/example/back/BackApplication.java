@@ -12,7 +12,7 @@ public class BackApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(BackApplication.class, args);
-		String command = "curl -GET \"localhost:9200/books/_search?pretty\"";
+		String[] command = {"curl","-GET","localhost:9200/books/_search?pretty"};
 		ProcessBuilder process = new ProcessBuilder(command); 
 		Process p;
 		try
