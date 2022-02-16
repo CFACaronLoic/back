@@ -10,7 +10,6 @@ public class CurlQueries {
     private String indice = "books";
     
     private String Query(String[] command) {
-      //  String[] command = {"curl","-GET", host + "/" + indice + "/_search?pretty"};
 		ProcessBuilder process = new ProcessBuilder(command); 
 		Process p;
 		try
@@ -35,8 +34,13 @@ public class CurlQueries {
     }
 
     public String SimpleSearch(String search) {
+        //-d' {  "from": 5,  "size": 20,  "query": { "match": { "user.id": "kimchy" }  }}
         String[] command =  {"curl","-GET", host + "/" + indice + "/_search?pretty"};
+        return Query(command);
+    }
 
+    public String GetAll() {
+        String[] command =  {"curl","-GET", host + "/" + indice + "/_search?pretty", "-d' { \"size\": 1000 }"};
         return Query(command);
     }
 }
