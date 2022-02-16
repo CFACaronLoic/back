@@ -41,7 +41,7 @@ public class CurlQueries {
     }
 
     public static String GetAll() {
-        String[] command =  {"curl","-X GET", host + "/_search?pretty", "-H", "\"Content-Type:application/json\"", "-d", "\"{\"\"sort\"\":[{\"\"download_count\"\":{\"\"order\"\":\"\"desc\"\"}}],\"\"size\"\":10}"};
+        String[] command =  {"curl","-X GET", host + "/_search?pretty", "-H", "\"Content-Type:application/json\"", "-d", "\"{\"\"sort\"\":[{\"\"download_count\"\":{\"\"order\"\":\"\"desc\"\"}}],\"\"size\"\":2000}"};
         return Query(command);
     }
 
