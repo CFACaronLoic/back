@@ -1,47 +1,39 @@
 package com.example.back;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.ParseException;
+import org.apache.http.client.fluent.Request;
+import org.apache.http.entity.ContentType;
+import org.apache.http.util.EntityUtils;
 
 public class CurlQueries {
-
-    private static String host = "localhost:9200";
-    private static String indice = "books";
     
-    private static String Query(String[] command) {
-		ProcessBuilder process = new ProcessBuilder(command); 
-		Process p;
-		try
-		{
-			p = process.start();
-			BufferedReader reader =  new BufferedReader(new InputStreamReader(p.getInputStream()));
-			StringBuilder builder = new StringBuilder();
-			String line = null;
-			while ( (line = reader.readLine()) != null) {
-					builder.append(line);
-					builder.append(System.getProperty("line.separator"));
-				}
-			String result = builder.toString();
-			return result;
-		}
-		catch (IOException e)
-		{   
-            System.out.print("error");
-			e.printStackTrace();
-            return null;
-		}
+    private static String Query(String command) {
+        try {
+            Request request = Request.Get("http://localhost:9200/_search?pretty");
+            request.bodyString(command,ContentType.APPLICATION_JSON);
+            request.setHeader("Content-Type", "application/json");
+            HttpResponse httpResponse = request.execute().returnResponse();
+            System.out.println(httpResponse.getStatusLine());
+            if (httpResponse.getEntity() != null) {
+	            String html;
+                html = EntityUtils.toString(httpResponse.getEntity());
+	            return(html);
+            }
+        } catch (ParseException | IOException e) {
+            e.printStackTrace();
+        } 
+        return null;
     }
 
     public static String SimpleSearch(String search) {
-        //-d' {  "from": 5,  "size": 20,  "query": { "match": { "user.id": "kimchy" }  }}
-        String[] command =  {"curl","-GET", host + "/" + indice + "/_search?pretty"};
-        return Query(command);
+        return Query(" {  \"size\": 1000 }");
     }
 
     public static String GetAll() {
-        String[] command =  {"curl","-GET", host + "/" + indice + "/_search?pretty", "-d'", "{", "\"size\":", "1000", "}"};
-        return Query(command);
+        return Query(" {  \"size\": 1000 }");
     }
 
     public static String RegexSearch(String regex) {
