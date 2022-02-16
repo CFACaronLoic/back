@@ -40,7 +40,11 @@ public class CurlQueries {
     }
 
     public static String GetAll() {
-        String[] command =  {"curl","-GET", host + "/" + indice + "/_search?pretty", "-d' { \"size\": 1000 }"};
+        String[] command =  {"curl","-GET", host + "/" + indice + "/_search?pretty", "-d'", "{", "\"size\":", "1000", "}"};
         return Query(command);
+    }
+
+    public static String RegexSearch(String regex) {
+        return "pl";
     }
 }
