@@ -19,6 +19,12 @@ class BookController {
     this.theBook = theBook;
   }
 
+  @GetMapping("/booksearch") 
+  String booksearch() {
+    CurlQueries querie = new CurlQueries();
+    String toto = querie.SimpleSearch("test");
+    return toto;
+  }
 
   // Aggregate root
   // tag::get-aggregate-root[]
