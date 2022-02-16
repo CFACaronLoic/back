@@ -6,10 +6,10 @@ import java.io.InputStreamReader;
 
 public class CurlQueries {
 
-    private String host = "localhost:9200";
-    private String indice = "books";
+    private static String host = "localhost:9200";
+    private static String indice = "books";
     
-    private String Query(String[] command) {
+    private static String Query(String[] command) {
 		ProcessBuilder process = new ProcessBuilder(command); 
 		Process p;
 		try
@@ -33,13 +33,13 @@ public class CurlQueries {
 		}
     }
 
-    public String SimpleSearch(String search) {
+    public static String SimpleSearch(String search) {
         //-d' {  "from": 5,  "size": 20,  "query": { "match": { "user.id": "kimchy" }  }}
         String[] command =  {"curl","-GET", host + "/" + indice + "/_search?pretty"};
         return Query(command);
     }
 
-    public String GetAll() {
+    public static String GetAll() {
         String[] command =  {"curl","-GET", host + "/" + indice + "/_search?pretty", "-d' { \"size\": 1000 }"};
         return Query(command);
     }
