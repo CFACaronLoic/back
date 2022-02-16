@@ -31,9 +31,7 @@ class BookController {
 
   @GetMapping("/bookall") 
   String bookall() {
-    CurlQueries querie = new CurlQueries();
-    String toto = querie.GetAll();
-    return toto;
+    return CurlQueries.GetAll();
   }
 
   // Aggregate root
