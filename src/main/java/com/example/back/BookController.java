@@ -26,6 +26,13 @@ class BookController {
     return toto;
   }
 
+  @GetMapping("/bookall") 
+  String bookall() {
+    CurlQueries querie = new CurlQueries();
+    String toto = querie.GetAll();
+    return toto;
+  }
+
   // Aggregate root
   // tag::get-aggregate-root[]
   @GetMapping("/allbook")
