@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 import org.json.JSONObject;
+import org.springframework.http.ResponseEntity;
+import java.util.Map;
 
 @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 
@@ -24,12 +26,12 @@ class BookController {
   }
 
   @GetMapping("/booksearch") 
-  JSONObject booksearch() {
+  Map<String, Object> booksearch() {
     CurlQueries querie = new CurlQueries();
     String toto = querie.SimpleSearch("test");
     JSONObject jsonObject = new JSONObject(toto);
     System.out.println(jsonObject);
-    return jsonObject;
+    return jsonObject.toMap();
   }
 
   @GetMapping("/bookall") 
