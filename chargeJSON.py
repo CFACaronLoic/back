@@ -6,10 +6,7 @@ import ssl
 host = "http://localhost:9200"
 headers = {'content-type': 'application/json', 'Accept-Charset': 'UTF-8'}
 es = Elasticsearch(host)
-
-#page a retourner en JSON
 p = 1
-#nombre de livre
 l = 0
 print("start traitement")
 while l<=1664:

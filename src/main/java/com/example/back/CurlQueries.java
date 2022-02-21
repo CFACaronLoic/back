@@ -3,6 +3,8 @@ package com.example.back;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import org.json.JSONObject;
+import org.json.JSONException;
 
 public class CurlQueries {
 
@@ -12,6 +14,7 @@ public class CurlQueries {
     private static String Query(String[] command) {
 		ProcessBuilder process = new ProcessBuilder(command); 
 		Process p;
+        String result;
 		try
 		{
 			p = process.start();
@@ -21,10 +24,8 @@ public class CurlQueries {
 			while ( (line = reader.readLine()) != null) {
 					builder.append(line);
 					builder.append(System.getProperty("line.separator"));
-                    builder.append("<br>");
 				}
-			String result = builder.toString();
-			return result;
+			return result = builder.toString();
 		}
 		catch (IOException e)
 		{   

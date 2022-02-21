@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
+import org.json.JSONObject;
 
 @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 
@@ -23,15 +24,18 @@ class BookController {
   }
 
   @GetMapping("/booksearch") 
-  String booksearch() {
+  JSONObject booksearch() {
     CurlQueries querie = new CurlQueries();
     String toto = querie.SimpleSearch("test");
-    return toto;
+    JSONObject jsonObject = new JSONObject(toto);
+    System.out.println(jsonObject);
+    return jsonObject;
   }
 
   @GetMapping("/bookall") 
-  String bookall() {
-    return CurlQueries.GetAll();
+  JSONObject bookall() {
+    JSONObject jsonObject = new JSONObject(CurlQueries.GetAll());
+    return jsonObject;
   }
 
   // Aggregate root
