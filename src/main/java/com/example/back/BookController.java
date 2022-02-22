@@ -14,7 +14,7 @@ import org.json.JSONObject;
 import org.springframework.http.ResponseEntity;
 import java.util.Map;
 
-@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
+@CrossOrigin(origins = "*", maxAge = 3600)
 
 @RestController
 class BookController {
