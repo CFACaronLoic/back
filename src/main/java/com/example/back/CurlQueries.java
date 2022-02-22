@@ -49,8 +49,8 @@ public class CurlQueries {
         return Query(command);
     }
 
-    public static String GetRegex(String regex) {
-        String[] command =  {"curl","-X GET", host + "/_search?pretty", "-H", "\"Content-Type:application/json\"", "-d", "\"{\"\"query\"\":{\"\"regexp\"\":{\"\"_all\"\":{\"\"value\"\":\"\"" + regex + "\"\",\"\"flags\"\":\"\"ALL\"\"}}}}"};
+    public static String GetRegex(String field, String regex) {
+        String[] command =  {"curl","-X GET", host + "/_search?pretty", "-H", "\"Content-Type:application/json\"", "-d", "\"{\"\"query\"\":{\"\"regexp\"\":{\"\""+ field + "\"\":{\"\"value\"\":\"\"" + regex + "\"\",\"\"flags\"\":\"\"ALL\"\"}}}}"};
         return Query(command);
     }
 }

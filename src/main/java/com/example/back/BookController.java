@@ -25,18 +25,33 @@ class BookController {
     this.theBook = theBook;
   }
 
-  @GetMapping("/booksearch") 
-  Map<String, Object> booksearch() {
-    CurlQueries querie = new CurlQueries();
-    String toto = querie.SimpleSearch("test");
+  @GetMapping("/booksearch/{search}") 
+  Map<String, Object> booksearch(@PathVariable("search") String search) {
+    String toto = CurlQueries.SimpleSearch(search);
     JSONObject jsonObject = new JSONObject(toto);
     System.out.println(jsonObject);
     return jsonObject.toMap();
   }
 
-  @GetMapping("/bookall") 
-  JSONObject bookall() {
-    JSONObject jsonObject = new JSONObject(CurlQueries.GetAll(1000));
+  @GetMapping("/bookfieldsearch/{field}/{search}") 
+  Map<String, Object> bookfieldsearch(@PathVariable("search") String search, @PathVariable("field") String field) {
+    String toto = CurlQueries.FieldSearch(field, search);
+    JSONObject jsonObject = new JSONObject(toto);
+    System.out.println(jsonObject);
+    return jsonObject.toMap();
+  }
+
+  @GetMapping("/bookregexpsearch/{field}/{search}") 
+  Map<String, Object> bookregexpsearch(@PathVariable("search") String search, @PathVariable("field") String field) {
+    String toto = CurlQueries.FieldSearch(field, search);
+    JSONObject jsonObject = new JSONObject(toto);
+    System.out.println(jsonObject);
+    return jsonObject.toMap();
+  }
+
+  @GetMapping("/bookall/{id}") 
+  JSONObject bookall(@PathVariable("id") int id) {
+    JSONObject jsonObject = new JSONObject(CurlQueries.GetAll(id));
     return jsonObject;
   }
 
