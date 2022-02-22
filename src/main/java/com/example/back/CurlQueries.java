@@ -9,7 +9,6 @@ import org.json.JSONException;
 public class CurlQueries {
 
     private static String host = "localhost:9200";
-    private static String indice = "books";
     
     private static String Query(String[] command) {
 		ProcessBuilder process = new ProcessBuilder(command); 
@@ -36,18 +35,22 @@ public class CurlQueries {
     }
 
     public static String SimpleSearch(String search) {
-        //-d' {  "from": 5,  "size": 20,  "query": { "match": { "user.id": "kimchy" }  }}
-        String[] command =  {"curl","-GET", host + "/" + indice + "/_search?pretty"};
+        String[] command =  {"curl","-X GET", host + "/_search?pretty", "-H", "\"Content-Type:application/json\"", "-d", "\"{\"\"query\"\":{\"\"query_string\"\":{\"\"query\"\":\"\"" + search + "\"\"}}}"};
         return Query(command);
     }
 
-    public static String GetAll() {
-        String[] command =  {"curl","-X GET", host + "/_search?pretty", "-H", "\"Content-Type:application/json\"", "-d", "\"{\"\"sort\"\":[{\"\"download_count\"\":{\"\"order\"\":\"\"desc\"\"}}],\"\"size\"\":2000}"};
+    public static String FieldSearch(String field, String search) {
+        String[] command =  {"curl","-X GET", host + "/_search?pretty", "-H", "\"Content-Type:application/json\"", "-d", "\"{\"\"query\"\":{\"\"match\"\":{\"\""+ field + "\"\":\"\"" + search + "\"\"}}}"};
         return Query(command);
     }
 
+    public static String GetAll(int size) {
+        String[] command =  {"curl","-X GET", host + "/_search?pretty", "-H", "\"Content-Type:application/json\"", "-d", "\"{\"\"sort\"\":[{\"\"download_count\"\":{\"\"order\"\":\"\"desc\"\"}}],\"\"size\"\":" + size + "}"};
+        return Query(command);
+    }
 
-    public static String RegexSearch(String regex) {
-        return "pl";
+    public static String GetRegex(String regex) {
+        String[] command =  {"curl","-X GET", host + "/_search?pretty", "-H", "\"Content-Type:application/json\"", "-d", "\"{\"\"query\"\":{\"\"regexp\"\":{\"\"_all\"\":{\"\"value\"\":\"\"" + regex + "\"\",\"\"flags\"\":\"\"ALL\"\"}}}}"};
+        return Query(command);
     }
 }

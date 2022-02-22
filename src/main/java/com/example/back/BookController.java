@@ -36,7 +36,7 @@ class BookController {
 
   @GetMapping("/bookall") 
   JSONObject bookall() {
-    JSONObject jsonObject = new JSONObject(CurlQueries.GetAll());
+    JSONObject jsonObject = new JSONObject(CurlQueries.GetAll(1000));
     return jsonObject;
   }
 
