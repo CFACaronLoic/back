@@ -50,9 +50,10 @@ class BookController {
   }
 
   @GetMapping("/bookall/{id}") 
-  JSONObject bookall(@PathVariable("id") int id) {
+  Map<String, Object> bookall(@PathVariable("id") int id) {
     JSONObject jsonObject = new JSONObject(CurlQueries.GetAll(id));
-    return jsonObject;
+    System.out.println(jsonObject);
+    return jsonObject.toMap();
   }
 
   // Aggregate root
